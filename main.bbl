@@ -7,13 +7,6 @@ Hicks, D.
   Schmoch, U., Eds.; Springer: Dordrecht,  2004; pp. 473--496.
 \newblock {\url{https://doi.org/10.1007/1-4020-2755-9_22}}.
 
-\bibitem[Nederhof(2006)]{nederhof2006bibliometric}
-Nederhof, A.J.
-\newblock Bibliometric monitoring of research performance in the social
-  sciences and the humanities: A review.
-\newblock {\em Scientometrics} {\bf 2006}, {\em 66},~81--100.
-\newblock {\url{https://doi.org/10.1007/s11192-006-0007-2}}.
-
 \bibitem[Kulczycki et~al.(2018)Kulczycki, Engels, P{\"o}l{\"o}nen, Bruun,
   Du\v{s}kov{\'a}, Guns, Nowotniak, Petr, Sivertsen, Star\v{c}i\v{c}, and
   Zuccala]{kulczycki2018publication}
@@ -35,23 +28,6 @@ Engels, T.C.E.; Isteni\v{c}~Star\v{c}i\v{c}, A.; Kulczycki, E.;
   70},~592--607.
 \newblock {\url{https://doi.org/10.1108/AJIM-05-2018-0127}}.
 
-\bibitem[Gim{\'e}nez-Toledo(2020)]{gimenez2020books}
-Gim{\'e}nez-Toledo, E.
-\newblock Why Books are Important in the Scholarly Communication System in
-  Social Sciences and Humanities.
-\newblock {\em Scholarly Assessment Reports} {\bf 2020}, {\em 2},~6.
-\newblock {\url{https://doi.org/10.29024/sar.14}}.
-
-\bibitem[Gim{\'e}nez-Toledo et~al.(2019)Gim{\'e}nez-Toledo, Ma\~{n}ana
-  Rodr{\'i}guez, Engels, Guns, Kulczycki, Ochsner, P{\"o}l{\"o}nen, Sivertsen,
-  and Zuccala]{gimenez2019books}
-Gim{\'e}nez-Toledo, E.; Ma\~{n}ana Rodr{\'i}guez, J.; Engels, T.C.E.; Guns, R.;
-  Kulczycki, E.; Ochsner, M.; P{\"o}l{\"o}nen, J.; Sivertsen, G.; Zuccala, A.A.
-\newblock Taking scholarly books into account, part II: a comparison of 19
-  European countries in evaluation and funding.
-\newblock {\em Scientometrics} {\bf 2019}, {\em 118},~233--251.
-\newblock {\url{https://doi.org/10.1007/s11192-018-2956-7}}.
-
 \bibitem[Gim{\'e}nez-Toledo et~al.(2013)Gim{\'e}nez-Toledo, Tejada-Artigas, and
   Ma\~{n}ana Rodr{\'i}guez]{gimenez2013publishers}
 Gim{\'e}nez-Toledo, E.; Tejada-Artigas, C.; Ma\~{n}ana Rodr{\'i}guez, J.
@@ -59,23 +35,6 @@ Gim{\'e}nez-Toledo, E.; Tejada-Artigas, C.; Ma\~{n}ana Rodr{\'i}guez, J.
   humanities: Results of a survey.
 \newblock {\em Research Evaluation} {\bf 2013}, {\em 22},~64--77.
 \newblock {\url{https://doi.org/10.1093/reseval/rvs036}}.
-
-\bibitem[Zuccala et~al.(2015)Zuccala, Guns, Cornacchia, and
-  Bod]{zuccala2015rank}
-Zuccala, A.; Guns, R.; Cornacchia, R.; Bod, R.
-\newblock Can we rank scholarly book publishers? A bibliometric experiment with
-  the field of history.
-\newblock {\em Journal of the Association for Information Science and
-  Technology} {\bf 2015}, {\em 66},~1333--1347.
-\newblock {\url{https://doi.org/10.1002/asi.23267}}.
-
-\bibitem[Angioni et~al.(2026)Angioni, Baglioni, and
-  Mannocci]{angioni2026bibliodiversity}
-Angioni, S.; Baglioni, M.; Mannocci, A.
-\newblock Operationalising bibliodiversity via the OpenAIRE Graph: a
-  multidimensional demonstration.
-\newblock {\em Scientometrics} {\bf 2026}.
-\newblock {\url{https://doi.org/10.1007/s11192-026-05732-9}}.
 
 \bibitem[White et~al.(2009)White, Boell, Yu, Davis, Wilson, and
   Cole]{white2009libcitations}
@@ -117,21 +76,6 @@ Small, H.
 \newblock {\em Journal of the American Society for Information Science} {\bf
   1973}, {\em 24},~265--269.
 \newblock {\url{https://doi.org/10.1002/asi.4630240406}}.
-
-\bibitem[Boyack et~al.(2005)Boyack, Klavans, and
-  B{\"o}rner]{boyack2005backbone}
-Boyack, K.W.; Klavans, R.; B{\"o}rner, K.
-\newblock Mapping the backbone of science.
-\newblock {\em Scientometrics} {\bf 2005}, {\em 64},~351--374.
-\newblock {\url{https://doi.org/10.1007/s11192-005-0255-6}}.
-
-\bibitem[B{\"o}rner et~al.(2003)B{\"o}rner, Chen, and
-  Boyack]{borner2003visualizing}
-B{\"o}rner, K.; Chen, C.; Boyack, K.W.
-\newblock Visualizing knowledge domains.
-\newblock {\em Annual Review of Information Science and Technology} {\bf 2003},
-  {\em 37},~179--255.
-\newblock {\url{https://doi.org/10.1002/aris.1440370106}}.
 
 \bibitem[Chen(2006)]{chen2006citespace}
 Chen, C.
@@ -195,12 +139,68 @@ Rotolo, D.; Hicks, D.; Martin, B.R.
 \newblock {\em Research Policy} {\bf 2015}, {\em 44},~1827--1843.
 \newblock {\url{https://doi.org/10.1016/j.respol.2015.06.006}}.
 
+\bibitem[Nederhof(2006)]{nederhof2006bibliometric}
+Nederhof, A.J.
+\newblock Bibliometric monitoring of research performance in the social
+  sciences and the humanities: A review.
+\newblock {\em Scientometrics} {\bf 2006}, {\em 66},~81--100.
+\newblock {\url{https://doi.org/10.1007/s11192-006-0007-2}}.
+
+\bibitem[Gim{\'e}nez-Toledo(2020)]{gimenez2020books}
+Gim{\'e}nez-Toledo, E.
+\newblock Why Books are Important in the Scholarly Communication System in
+  Social Sciences and Humanities.
+\newblock {\em Scholarly Assessment Reports} {\bf 2020}, {\em 2},~6.
+\newblock {\url{https://doi.org/10.29024/sar.14}}.
+
+\bibitem[Gim{\'e}nez-Toledo et~al.(2019)Gim{\'e}nez-Toledo, Ma\~{n}ana
+  Rodr{\'i}guez, Engels, Guns, Kulczycki, Ochsner, P{\"o}l{\"o}nen, Sivertsen,
+  and Zuccala]{gimenez2019books}
+Gim{\'e}nez-Toledo, E.; Ma\~{n}ana Rodr{\'i}guez, J.; Engels, T.C.E.; Guns, R.;
+  Kulczycki, E.; Ochsner, M.; P{\"o}l{\"o}nen, J.; Sivertsen, G.; Zuccala, A.A.
+\newblock Taking scholarly books into account, part II: a comparison of 19
+  European countries in evaluation and funding.
+\newblock {\em Scientometrics} {\bf 2019}, {\em 118},~233--251.
+\newblock {\url{https://doi.org/10.1007/s11192-018-2956-7}}.
+
+\bibitem[Zuccala et~al.(2015)Zuccala, Guns, Cornacchia, and
+  Bod]{zuccala2015rank}
+Zuccala, A.; Guns, R.; Cornacchia, R.; Bod, R.
+\newblock Can we rank scholarly book publishers? A bibliometric experiment with
+  the field of history.
+\newblock {\em Journal of the Association for Information Science and
+  Technology} {\bf 2015}, {\em 66},~1333--1347.
+\newblock {\url{https://doi.org/10.1002/asi.23267}}.
+
 \bibitem[Hicks et~al.(2015)Hicks, Wouters, Waltman, de~Rijcke, and
   Rafols]{hicks2015leiden}
 Hicks, D.; Wouters, P.; Waltman, L.; de~Rijcke, S.; Rafols, I.
 \newblock Bibliometrics: The Leiden Manifesto for research metrics.
 \newblock {\em Nature} {\bf 2015}, {\em 520},~429--431.
 \newblock {\url{https://doi.org/10.1038/520429a}}.
+
+\bibitem[Angioni et~al.(2026)Angioni, Baglioni, and
+  Mannocci]{angioni2026bibliodiversity}
+Angioni, S.; Baglioni, M.; Mannocci, A.
+\newblock Operationalising bibliodiversity via the OpenAIRE Graph: a
+  multidimensional demonstration.
+\newblock {\em Scientometrics} {\bf 2026}.
+\newblock {\url{https://doi.org/10.1007/s11192-026-05732-9}}.
+
+\bibitem[B{\"o}rner et~al.(2003)B{\"o}rner, Chen, and
+  Boyack]{borner2003visualizing}
+B{\"o}rner, K.; Chen, C.; Boyack, K.W.
+\newblock Visualizing knowledge domains.
+\newblock {\em Annual Review of Information Science and Technology} {\bf 2003},
+  {\em 37},~179--255.
+\newblock {\url{https://doi.org/10.1002/aris.1440370106}}.
+
+\bibitem[Boyack et~al.(2005)Boyack, Klavans, and
+  B{\"o}rner]{boyack2005backbone}
+Boyack, K.W.; Klavans, R.; B{\"o}rner, K.
+\newblock Mapping the backbone of science.
+\newblock {\em Scientometrics} {\bf 2005}, {\em 64},~351--374.
+\newblock {\url{https://doi.org/10.1007/s11192-005-0255-6}}.
 
 \bibitem[van Eck and Waltman(2010)]{vaneck2010vosviewer}
 van Eck, N.J.; Waltman, L.

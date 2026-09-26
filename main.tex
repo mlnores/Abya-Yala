@@ -4,6 +4,7 @@
 \usepackage{adjustbox}
 \usepackage{xspace}
 
+\renewcommand{\tabularxcolumn}[1]{p{#1}}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \newcommand{\ABYA}{ABYA-YALA\xspace}
 \newcommand{\NA}{\textemdash}
@@ -29,7 +30,11 @@
 \address{}
 \corres{}
 
-\abstract{Scholarly publisher catalogues are longitudinal knowledge resources whose heterogeneous text is difficult to organize while preserving thematic, temporal, hierarchical and provenance information. We present a multidimensional semantic framework that combines an internal topic structure with two external evidence sources: OpenAlex topic-country indexed activity and screened Research Horizon candidates assessed through documentary review. A proof-of-concept uses the 1978--2026 catalogue of Editorial ABYA-YALA. SPECTER2 representations, BERTopic with UMAP and HDBSCAN, documented expert curation, longitudinal diversity measures, topic-country comparisons and corpus-wide documentary review produce a traceable structure in which algorithmic and curated states remain available for separate inspection. The initial density-based partition contained 70 clusters; documented expert curation yielded 68 analytical topics covering 2,383 books, while 1,580 semantically eligible records remained HDBSCAN noise. The mapped stable core combines long-term persistence with recent recomposition. Four lines satisfy the reference two-stage renewal rule, although threshold perturbations show partly boundary-sensitive membership. Outlier stress tests preserve global diversity more strongly than recent compositional distance or renewal membership. The framework organizes catalogue knowledge into explicit topics with hierarchical, temporal and provenance attributes, while the OpenAlex scholarly graph and screened Research Horizon evidence provide complementary external context.}
+\abstract{Scholarly publisher catalogues provide a long-term record of how knowledge is organized, developed and communicated, but their heterogeneous text and uneven metadata make them difficult to analyse systematically over time. This study presents a semantic framework for representing publisher catalogues through explicit thematic, temporal, hierarchical and provenance information, while also relating internal editorial trajectories to external scientific activity. 
+The framework is demonstrated using the 1978--2026 catalogue of Editorial ABYA-YALA. Semantic topic modelling is combined with documented expert curation to reconstruct the catalogue's thematic structure and trace its evolution over nearly five decades. Selected editorial lines are then compared with scientific activity indexed in OpenAlex and with screened emerging research fronts from Research Horizon.
+The results reveal a stable long-term thematic core alongside substantial recent recomposition and several lines showing renewed activity. They also show that historical prominence within the catalogue, current scientific activity, and proximity to emerging research fronts do not necessarily coincide. By preserving both algorithmic and curated states, the framework makes expert intervention and cross-source interpretation traceable.
+%The study provides a reproducible proof-of-concept for analysing scholarly catalogues as longitudinal knowledge structures and for linking them to external scientific knowledge infrastructures without collapsing distinct forms of evidence into a single score.
+}
 
 \keyword{knowledge representation; semantic topic modeling; scholarly publishers; longitudinal analysis; OpenAlex; research fronts}
 
@@ -37,20 +42,23 @@
 
 \section{Introduction}\label{sec:introduction}
 
-Books remain important scholarly communication channels in many social-science and humanities fields, although their prevalence varies by discipline, language and national research system \citep{hicks2004four,nederhof2006bibliometric,kulczycki2018publication,engels2018books,gimenez2020books}. This diversity matters for research evaluation. Article-indexed citation infrastructures provide powerful tools for studying many forms of scientific activity, but book-oriented fields also rely on monographs, edited volumes, locally oriented publications and publisher-specific channels \citep{gimenez2019books,gimenez2013publishers,zuccala2015rank}. Their catalogues are challenging longitudinal knowledge resources: they combine heterogeneous natural-language descriptions, incomplete and uneven metadata, evolving thematic structures, long temporal spans, documentary and editorial provenance and potential links to external scientific knowledge infrastructures. An adequate analysis must therefore keep semantic, temporal, hierarchical and provenance information explicit. Recent work on bibliodiversity likewise treats format, language, geography, publisher type and infrastructure as separate dimensions of scholarly communication \citep{angioni2026bibliodiversity}. Together, these observations motivate a complementary question for publisher-level analysis: how can a publisher's long-term thematic trajectory be described and related to the scientific environment in which its topics circulate?
-Books remain important scholarly communication channels in many social-science and humanities fields, although their prevalence varies by discipline, language and national research system \citep{hicks2004four,nederhof2006bibliometric,kulczycki2018publication,engels2018books,gimenez2020books}. This diversity matters for research evaluation. Article-indexed citation infrastructures provide powerful tools for studying many forms of scientific activity, but book-oriented fields also rely on monographs, edited volumes, locally oriented publications and publisher-specific channels \citep{gimenez2019books,gimenez2013publishers,zuccala2015rank}. Their catalogues are challenging longitudinal knowledge resources: they combine heterogeneous natural-language descriptions, incomplete and uneven metadata, evolving thematic structures, long temporal spans, documentary and editorial provenance and potential links to external scientific knowledge infrastructures. An adequate representation must therefore preserve semantic, temporal, hierarchical and provenance information. Recent work on bibliodiversity likewise treats format, language, geography, publisher type and infrastructure as separate dimensions of scholarly communication \citep{angioni2026bibliodiversity}. Together, these observations motivate a complementary question for publisher-level analysis: how can a publisher's long-term thematic trajectory be described and related to the scientific environment in which its topics circulate?
+Scholarly publisher catalogues provide a long-term record of how thematic priorities develop, persist and change. Yet they are difficult to analyse systematically because they combine heterogeneous natural-language descriptions, incomplete and uneven metadata, long temporal spans, editorial provenance and links to external scientific knowledge infrastructures. An adequate representation must therefore preserve semantic, temporal, hierarchical and provenance information.
 
-Research on scholarly books and publishers has developed several complementary approaches. Surveys and rankings examine perceived publisher prestige, citation analyses assess book impact and library holdings provide another signal of use or circulation. The Book Citation Index and related infrastructures offer partial bibliometric coverage \citep{gimenez2013publishers,white2009libcitations,kousha2011books,torres2014bookcitation,zuccala2015rank}. This literature also shows why evaluation must account for publication patterns in the social sciences and humanities and for heterogeneous national book-publishing systems \citep{kulczycki2018publication,gimenez2019books}. These approaches address impact, prestige, visibility and formal assessment. Less developed is the longitudinal thematic organization of a publisher's catalogue: which themes accumulate over decades, which remain continuous, which grow recently, which become prominent within related families and whether the same lines correspond to active or emerging scientific conversations outside the catalogue.
+This challenge is particularly relevant in fields where books remain an important form of scholarly communication and journal-based infrastructures provide only a partial view of research activity \citep{hicks2004four,kulczycki2018publication,engels2018books}. Research on scholarly books and publishers has consequently developed several complementary forms of evaluation. Publisher surveys and rankings address perceived prestige \citep{gimenez2013publishers}; citation analyses examine scholarly impact, while library holdings provide an alternative indication of use or circulation \citep{white2009libcitations,kousha2011books}; and bibliographic infrastructures such as the Book Citation Index provide partial coverage of book-based scholarship \citep{torres2014bookcitation}. These approaches assess impact, prestige, visibility and circulation, but say less about the catalogue itself as a changing thematic system.
 
-Scientometric research separately maps knowledge structures and temporal change. Co-citation and science-mapping methods recover relationships among scientific documents and specialties \citep{price1965networks,small1973cocitation,boyack2005backbone,borner2003visualizing,chen2006citespace}. Topic models and semantic clustering subsequently enabled large corpora to be represented through latent or embedding-based thematic structures \citep{blei2003lda,blei2006dynamic,grootendorst2022bertopic}. Longitudinal methods trace changes in topic distributions, the movement of venues through topic space and paths of scientific development \citep{schaefermeier2021topicspace,kim2022trajectories}. Research-front studies address more specific questions about emerging clusters and the organization of recent scientific activity \citep{boyack2010front,small2014emerging,rotolo2015emerging}. These streams are complementary but usually examine different objects: book evaluation focuses on books and publishers, whereas topic trajectories and research-front mapping mainly concern scientific publications and fields.
+Scientometric research provides methods that could help address this thematic and longitudinal problem. Co-citation and science-mapping methods recover relationships among scientific documents and specialties \citep{price1965networks,small1973cocitation,chen2006citespace}. Topic models and semantic clustering represent large corpora through latent or embedding-based thematic structures \citep{blei2003lda,blei2006dynamic,grootendorst2022bertopic}. Longitudinal methods trace changes in topic distributions, the movement of venues through topic space and paths of scientific development \citep{schaefermeier2021topicspace,kim2022trajectories}, while research-front studies identify emerging clusters and characterize recent scientific activity \citep{boyack2010front,small2014emerging,rotolo2015emerging}. Together, these methods offer tools for identifying thematic organization and tracking change. Their usual empirical objects, however, are scientific documents, venues, specialties or fields rather than the long-term thematic structure of a publisher catalogue.
 
-From a knowledge-representation perspective, the challenge is to convert a heterogeneous document collection into a structure with explicit semantic units, temporal properties, hierarchical context and provenance. Here, topics provide the semantic units, macro-families supply higher-order organization and longitudinal profiles encode temporal properties. Preserving both the algorithmic and curated states makes expert intervention traceable. Together, these stages form an analytical and representational architecture. Heterogeneous text first becomes machine-derived topics that are then curated and organized longitudinally. OpenAlex and Research Horizon connect selected editorial lines to external scholarly infrastructures, with each connection's source and interpretation kept traceable.
+The resulting gap lies in bringing these perspectives together: a publisher catalogue must be represented as an evolving thematic structure while preserving its semantic organization, temporal development, hierarchical context and editorial provenance, and selected thematic lines must be related to external scientific activity without conflating the different forms of evidence.
 
-The remaining gap is a method for representing a publisher's thematic structure over time while comparing it with external scientific evidence. Historical catalogue patterns, indexed activity around editorial lines and retention after documentary review measure different phenomena. Keeping them as separate evidence layers makes their configurations directly observable. A persistent editorial line, one with high indexed activity and one strongly represented among screened research fronts need not be the same. A relatively small recent line may grow rapidly alongside substantial indexed activity, while a broad technical line may connect with several specialized external conversations. The framework preserves these distinctions throughout analysis and interpretation without collapsing them into a synthetic score.
+This study develops such a framework and demonstrates it with the 1978--2026 catalogue of Editorial \ABYA, an Ecuadorian scholarly publisher. The catalogue's nearly five-decade span and breadth across social-science, humanities, educational, environmental, religious and technical subjects make it a useful case for examining long-running editorial lines and recent recomposition. The empirical objective is to reconstruct its thematic development and situate selected lines in relation to topic-country indexed activity in OpenAlex and screened emerging research fronts from Research Horizon.
 
-This article develops the framework through a longitudinal proof-of-concept using the 1978--2026 catalogue of Editorial \ABYA, an Ecuadorian scholarly publisher. The catalogue spans nearly five decades of social-science, humanities, educational, environmental, religious and technical subjects, providing a sufficiently long record for examining thematic development and change. Its breadth and duration make it possible to study long-running editorial lines, recent recomposition and links to external scientific activity within the same case while retaining their different evidential bases. The objective is to reconstruct its thematic structure over time and relate that structure to evidence on indexed scientific activity and screened research fronts without conflating their meanings. The empirical scope is therefore the publisher's thematic trajectories and their external scientific context within the defined comparison designs.
-
-The framework makes four contributions within this proof-of-concept. First, it derives explicit topics from heterogeneous catalogue text through embedding-based clustering and documented expert curation. The initial partition, curated state and document-level changes remain available as separate stages. Second, it organizes the topics through hierarchical context and longitudinal attributes while keeping these dimensions separate rather than combining them into one indicator. Third, it formalizes a case-specific renewal decision as a two-stage procedure that separates quantitative growth from trajectory qualification. The frozen case makes the rule executable, while future replications can prespecify and validate its thresholds independently. Fourth, it relates selected topics to two forms of external evidence: OpenAlex topic-country indexed activity and corpus-wide documentary review of screened Research Horizon candidates. The architecture and audit trail are intended to be reusable across cases. However, the numerical thresholds, focal-line selection, country set, hierarchy cut, mapping roles and Research Horizon screening design require case-specific specification and cross-publisher validation.
+The framework makes four contributions within this proof-of-concept:
+\begin{itemize} 
+    \item First, it derives explicit topics from heterogeneous catalogue text through embedding-based clustering and documented expert curation, retaining the initial partition, curated state and document-level changes as separate stages. 
+    \item Second, it organizes the topics through hierarchical context and longitudinal attributes. 
+    \item Third, it formalizes a case-specific renewal decision as a two-stage procedure that separates quantitative growth from trajectory qualification. The frozen case makes the rule executable, while future replications can prespecify and validate its thresholds independently. 
+    \item Fourth, it relates selected topics to OpenAlex topic-country indexed activity and a corpus-wide documentary review of screened Research Horizon candidates. The architecture and audit trail are intended to be reusable across cases. However, the numerical thresholds, focal-line selection, country set, hierarchy cut, mapping roles and Research Horizon screening design require case-specific specification and cross-publisher validation.
+\end{itemize}
 
 The remainder of the article proceeds from conceptual framing to empirical demonstration. Section~\ref{sec:related} develops the related literature and analytical framework and states the research questions. Section~\ref{sec:methods} describes the data and methods, with emphasis on reproducibility and on the separation between algorithmic and expert-assisted stages. Section~\ref{sec:results} reports the longitudinal proof-of-concept. Section~\ref{sec:discussion} interprets the findings, states their methodological implications and discusses limitations. Section~\ref{sec:conclusion} concludes and identifies concrete directions for replication and external validation.
 
@@ -88,25 +96,27 @@ OpenAlex and Research Horizon answer different questions. OpenAlex characterizes
 
 These literatures lead to four empirical research questions. The first characterizes the mapped stable thematic core, the second quantifies the effect of documented curation and the last two connect selected editorial lines to external evidence.
 
-\noindent\textbf{RQ1.} What longitudinal thematic structure characterizes the mapped stable semantic core of the \ABYA catalogue in terms of concentration, diversity, temporal persistence, compositional change and recent renewal?
+\begin{itemize}
+\item \textbf{RQ1.} What longitudinal thematic structure characterizes the mapped stable semantic core of the \ABYA catalogue in terms of concentration, diversity, temporal persistence, compositional change and recent renewal?
 
-\noindent\textbf{RQ2.} How materially does documented expert curation alter the initial algorithmic semantic partition and downstream diversity measures?
+\item \textbf{RQ2.} How materially does documented expert curation alter the initial algorithmic semantic partition and downstream diversity measures?
 
-\noindent\textbf{RQ3.} How does indexed scientific activity around nine focal editorial lines vary within the pre-specified ten-country OpenAlex comparison?
+\item \textbf{RQ3.} How does indexed scientific activity around nine focal editorial lines vary within the pre-specified ten-country OpenAlex comparison?
 
-\noindent\textbf{RQ4.} Within the screened Research Horizon candidate set, how does candidate retention after documentary review vary across focal lines, and where does it diverge from internal accumulation and OpenAlex indexed activity?
+\item \textbf{RQ4.} Within the screened Research Horizon candidate set, how does candidate retention after documentary review vary across focal lines, and where does it diverge from internal accumulation and OpenAlex indexed activity?
+\end{itemize}
 
 Figure~\ref{fig:framework} summarizes the architecture. The internal layer combines semantic structure, longitudinal indicators and substantive-renewal classification; OpenAlex indexed activity and screened research-front retention are evaluated independently.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{figures/Fig1_framework.pdf}
+\includegraphics[width=0.9\textwidth]{figures/Fig1_framework.png}
 \caption{Analytical architecture of the proposed framework. The internal thematic map, OpenAlex indexed-activity context and screened Research Horizon retention are compared across the four research questions on their respective scales.}\label{fig:framework}
 \end{figure}
 
 Table~\ref{tab:rqs} makes the research-question traceability explicit. This mapping is defined before the empirical results so that the evidence used to answer each question is clear.
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Research questions, evidence layers and analytical outputs}\label{tab:rqs}
 \small
 \begin{tabularx}{\textwidth}{@{}p{0.07\textwidth}Y Y Y@{}}
@@ -123,17 +133,17 @@ RQ4 & 11,325 Research Horizon topic IDs, 73 screened associations, 30 candidate 
 
 \section{Data and methods}\label{sec:methods}
 
-\subsection{Study design and evidence layers}\label{subsec:design}
+%\subsection{Study design and evidence layers}\label{subsec:design}
 
-The study is a longitudinal methodological proof-of-concept. It reconstructs a publisher's thematic trajectory from frozen model-ready inputs and relates it to indexed activity and screened research-front candidates. The design has four stages: (1) a validated publisher catalogue; (2) an algorithmic topic partition followed by documented expert curation; (3) longitudinal measures and thematic-renewal classification; and (4) mappings to OpenAlex and Research Horizon. Figure~\ref{fig:pipeline} shows the corpus-to-map sequence, and Table~\ref{tab:sources} summarizes the evidence design.
+The study in this paper is a longitudinal methodological proof-of-concept. It reconstructs a publisher's thematic trajectory from frozen model-ready inputs and relates it to indexed activity and screened research-front candidates. The design has four stages: (1) a validated publisher catalogue; (2) an algorithmic topic partition followed by documented expert curation; (3) longitudinal measures and thematic-renewal classification; and (4) mappings to OpenAlex and Research Horizon. Figure~\ref{fig:pipeline} shows the corpus-to-map sequence, and Table~\ref{tab:sources} summarizes the evidence design.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{figures/Fig2_pipeline.pdf}
+\includegraphics[width=0.9\textwidth]{figures/Fig2_pipeline.png}
 \caption{Corpus and semantic-mapping workflow. Initial algorithmic clustering, documented structural expert curation, final analytical membership and post-membership labeling are represented as distinct stages; HDBSCAN noise remains explicitly unassigned in the reference semantic map.}\label{fig:pipeline}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Evidence sources and their analytical role}\label{tab:sources}
 \small
 \begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.25\textwidth}Y@{}}
@@ -221,7 +231,7 @@ Dimension & Symbol & Operationalization & Interpretation \\
 Volume & $V$ & $100\,n_k/\max_j n_j$ & Relative catalogue accumulation \\
 Persistence & $P$ & $100\,d_k/5$; $d_k$ = active decades & Long-run temporal presence \\
 Continuity & $C$ & $100\,a_k/\ell_k$; active years / observed span & Regularity within the trajectory \\
-Recent growth & $G$ & \makecell[l]{$100\min(R_k/10,1)$\\$\times\min((R_k/\max(B_k,1))/1.5,1)$} & Screening signal for subsequent renewal qualification \\
+Recent growth & $G$ & \makecell[tl]{$100\min(R_k/10,1)$\\$\times\min((R_k/\max(B_k,1))/1.5,1)$} & Screening signal for subsequent renewal qualification \\
 Within-family prominence & $F$ & $100\,n_k/\max_{j\in F(k)}n_j$ & Relative volume within the macro-family \\
 \bottomrule
 \end{tabularx}
