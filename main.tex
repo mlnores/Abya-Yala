@@ -48,17 +48,19 @@ This challenge is particularly relevant in fields where books remain an importan
 
 Scientometric research provides methods that could help address this thematic and longitudinal problem. Co-citation and science-mapping methods recover relationships among scientific documents and specialties \citep{price1965networks,small1973cocitation,chen2006citespace}. Topic models and semantic clustering represent large corpora through latent or embedding-based thematic structures \citep{blei2003lda,blei2006dynamic,grootendorst2022bertopic}. Longitudinal methods trace changes in topic distributions, the movement of venues through topic space and paths of scientific development \citep{schaefermeier2021topicspace,kim2022trajectories}, while research-front studies identify emerging clusters and characterize recent scientific activity \citep{boyack2010front,small2014emerging,rotolo2015emerging}. Together, these methods offer tools for identifying thematic organization and tracking change. Their usual empirical objects, however, are scientific documents, venues, specialties or fields rather than the long-term thematic structure of a publisher catalogue.
 
-The resulting gap lies in bringing these perspectives together: a publisher catalogue must be represented as an evolving thematic structure while preserving its semantic organization, temporal development, hierarchical context and editorial provenance, and selected thematic lines must be related to external scientific activity without conflating the different forms of evidence.
+The resulting gap lies in bringing these perspectives together. A publisher catalogue must be represented as an evolving thematic structure while preserving its semantic organization, temporal development, hierarchical context and editorial provenance. Selected thematic lines must also be related to external scientific activity without conflating the different forms of evidence.
 
 This study develops such a framework and demonstrates it with the 1978--2026 catalogue of Editorial \ABYA, an Ecuadorian scholarly publisher. The catalogue's nearly five-decade span and breadth across social-science, humanities, educational, environmental, religious and technical subjects make it a useful case for examining long-running editorial lines and recent recomposition. The empirical objective is to reconstruct its thematic development and situate selected lines in relation to topic-country indexed activity in OpenAlex and screened emerging research fronts from Research Horizon.
 
-The framework makes four contributions within this proof-of-concept:
+The framework makes four contributions in this proof-of-concept:
 \begin{itemize} 
     \item First, it derives explicit topics from heterogeneous catalogue text through embedding-based clustering and documented expert curation, retaining the initial partition, curated state and document-level changes as separate stages. 
     \item Second, it organizes the topics through hierarchical context and longitudinal attributes. 
-    \item Third, it formalizes a case-specific renewal decision as a two-stage procedure that separates quantitative growth from trajectory qualification. The frozen case makes the rule executable, while future replications can prespecify and validate its thresholds independently. 
-    \item Fourth, it relates selected topics to OpenAlex topic-country indexed activity and a corpus-wide documentary review of screened Research Horizon candidates. The architecture and audit trail are intended to be reusable across cases. However, the numerical thresholds, focal-line selection, country set, hierarchy cut, mapping roles and Research Horizon screening design require case-specific specification and cross-publisher validation.
+    \item Third, it formalizes a case-specific renewal decision as a two-stage procedure that separates quantitative growth from trajectory qualification. The frozen case makes the rule executable, while future replications can pre-specify and validate its thresholds independently. 
+    \item Fourth, it relates selected topics to OpenAlex topic-country indexed activity and a corpus-wide documentary review of screened Research Horizon candidates. %The architecture and audit trail are intended to be reusable across cases. However, the numerical thresholds, focal-line selection, country set, hierarchy cut, mapping roles and Research Horizon screening design require case-specific specification and cross-publisher validation.
 \end{itemize}
+
+The architecture and audit trail are intended to be reusable across cases, whereas the numerical thresholds, focal-line selection, country set, hierarchy cut, mapping roles and Research Horizon screening design require case-specific specification and validation.
 
 The remainder of the article proceeds from conceptual framing to empirical demonstration. Section~\ref{sec:related} develops the related literature and analytical framework and states the research questions. Section~\ref{sec:methods} describes the data and methods, with emphasis on reproducibility and on the separation between algorithmic and expert-assisted stages. Section~\ref{sec:results} reports the longitudinal proof-of-concept. Section~\ref{sec:discussion} interprets the findings, states their methodological implications and discusses limitations. Section~\ref{sec:conclusion} concludes and identifies concrete directions for replication and external validation.
 
@@ -135,7 +137,16 @@ RQ4 & 11,325 Research Horizon topic IDs, 73 screened associations, 30 candidate 
 
 %\subsection{Study design and evidence layers}\label{subsec:design}
 
-The study in this paper is a longitudinal methodological proof-of-concept. It reconstructs a publisher's thematic trajectory from frozen model-ready inputs and relates it to indexed activity and screened research-front candidates. The design has four stages: (1) a validated publisher catalogue; (2) an algorithmic topic partition followed by documented expert curation; (3) longitudinal measures and thematic-renewal classification; and (4) mappings to OpenAlex and Research Horizon. Figure~\ref{fig:pipeline} shows the corpus-to-map sequence, and Table~\ref{tab:sources} summarizes the evidence design.
+The study in this paper is a longitudinal methodological proof-of-concept. It reconstructs a publisher's thematic trajectory from frozen model-ready inputs and relates it to indexed activity and screened research-front candidates. The design has four stages:
+\begin{enumerate}
+\item a validated publisher catalogue; 
+\item an algorithmic topic partition followed by documented expert curation; 
+\item longitudinal measures and thematic-renewal classification; and 
+\item mappings to OpenAlex and Research Horizon. 
+\end{enumerate}
+
+Figure~\ref{fig:pipeline} shows the corpus-to-map sequence, and Table~\ref{tab:sources} summarizes the evidence design. The internal layer combines topic membership, hierarchical family context, longitudinal attributes and a record of curation. OpenAlex activity and Research Horizon review outcomes are then attached to selected topics without rescaling them to a common measure.
+
 
 \begin{figure}[ht]
 \centering
@@ -158,13 +169,12 @@ Research Horizon & 11,325 topic IDs (11,232 unique names); 73 candidate associat
 \end{tabularx}
 \end{table}
 
-The internal layer combines topic membership, hierarchical family context, longitudinal attributes and a record of curation. OpenAlex activity and Research Horizon review outcomes are then attached to selected topics without rescaling them to a common measure.
 
 \subsection{Catalogue, unit of analysis and text eligibility}\label{subsec:corpus}
 
-The source is the unified catalogue of books published by Editorial \ABYA. The upstream acquisition layer recorded 8,399 source rows and flagged 4,142 as valid book records. The frozen source record does not preserve the row-level reasons for all 4,257 upstream exclusions, so the 8,399-row figure is retained only as provenance and is not used as an analytical denominator. The unit of analysis throughout the internal layer is the validated book record. The year variable is the editorial year available in the catalogue.
+The source is the unified catalogue of books published by Editorial \ABYA. The upstream acquisition layer recorded 8,399 source rows and flagged 4,142 as valid book records. The frozen source record does not preserve the row-level reasons for all 4,257 upstream exclusions, so the 8,399-row figure is retained only as provenance and is not used as an analytical denominator. 
 
-A record entered the semantic analysis if it satisfied at least one of two text-availability conditions: a title of at least 20 characters \emph{or} an abstract/summary of at least 200 characters. This canonical OR rule yielded 3,963 semantically eligible books and left 179 valid catalogue books outside the embedding-based analysis. For each eligible record, the model-ready input is the English-translated title followed, when available, by the English-translated abstract or summary; the reproducibility package preserves these exact strings together with the original titles. Translation occurred upstream in the analytical platform and is treated here as a fixed preprocessing input; it is not re-estimated in the reproducibility package. The semantic analysis therefore reproduces the model from frozen text inputs rather than auditing the translation procedure itself.
+The unit of analysis throughout the internal layer is the validated book record. The year variable is the editorial year available in the catalogue. A record entered the semantic analysis if it satisfied at least one of two text-availability conditions: a title of at least 20 characters \emph{or} an abstract or summary of at least 200 characters. This canonical OR rule yielded 3,963 semantically eligible books and left 179 valid catalogue books outside the embedding-based analysis. For each eligible record, the model-ready input is the English-translated title followed, when available, by the English-translated abstract or summary---the reproducibility package preserves these exact strings together with the original titles. Translation occurred upstream in the analytical platform and is treated here as a fixed preprocessing input; it is not re-estimated in the reproducibility package. The semantic analysis therefore reproduces the model from frozen text inputs rather than auditing the translation procedure itself.
 
 The temporal coverage begins in 1978, but the early years are sparse and the source contains no record for 1979. We therefore distinguish a 1978--1986 prelude from the effective long-run series beginning in 1987. The main interpretive periodization is 1987--1998 (foundation), 1999--2008 (diversified plateau), 2009--2014 (maximum expansion), 2015--2021 (contraction and transition) and 2022--2026 (recent recomposition). The 2025 and 2026 records reflect the latest catalogue update and are incomplete relative to earlier years; recent descriptive comparisons therefore give priority to the complete 2022--2024 observations. The Kipu documentary series receives a separate chronological treatment because its catalogue year tracks editorial registration and does not necessarily reproduce the original date of each underlying periodical item.
 
@@ -174,7 +184,7 @@ Documents were represented with SPECTER2 (\texttt{allenai/specter2\_base}), prod
 
 The initial algorithmic topic model follows the BERTopic architecture \citep{grootendorst2022bertopic}. SPECTER2 embeddings were projected to five dimensions with UMAP \citep{mcinnes2018umap} and then clustered with HDBSCAN \citep{mcinnes2017hdbscan}. BERTopic used the resulting cluster memberships to construct class-based TF-IDF topic representations. A separate two-dimensional UMAP projection was retained only for visualization; it did not determine cluster membership. Table~\ref{tab:parameters} lists the fixed software versions and primary parameters.
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Frozen topic-model configuration used in the reproducibility package}\label{tab:parameters}
 \small
 \begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.27\textwidth}Y@{}}
@@ -252,7 +262,7 @@ Substantive thematic renewal is operationalized through two sequential condition
 
 The emergence exclusion affects two of the 68 final topics: \emph{Decolonial pedagogies and insurgent practices} (first active year 2013) and \emph{Yánkuam diaries in Peru and Ecuador} (2018). Both remain part of the thematic map and are excluded only from the expansion-versus-renewal classification because their observed trajectories begin within the recent-growth era.
 
-Stage B was retrospectively formalized from exclusion reasons documented during the original analytical workflow. The resulting rule makes the recorded case decisions executable independently of topic names or IDs. General validity remains to be established through prespecified cross-publisher replication. Let $I^{time}_k$ equal 1 when no documented chronological anomaly compromises the series; let $q^{(3)}_k$ be the share of all topic-$k$ books concentrated in its three highest-output years; let $\ell_k=y^{last}_k-y^{first}_k+1$ be the observed span; and let $n_k$ be total mapped books in the topic. Episodicity is defined as
+Stage B was retrospectively formalized from exclusion reasons documented during the original analytical workflow. The resulting rule makes the recorded case decisions executable independently of topic names or IDs. General validity remains to be established through pre-specified cross-publisher replication. Let $I^{time}_k$ equal 1 when no documented chronological anomaly compromises the series; let $q^{(3)}_k$ be the share of all topic-$k$ books concentrated in its three highest-output years; let $\ell_k=y^{last}_k-y^{first}_k+1$ be the observed span; and let $n_k$ be total mapped books in the topic. Episodicity is defined as
 
 \begin{equation}
 \mathrm{Episodic}_k=[q^{(3)}_k\ge0.60]\land[\ell_k\ge10]\land[n_k\ge15].
@@ -267,7 +277,7 @@ A reference substantive-renewal classification is then
 \label{eq:stageB}
 \end{equation}
 
-The recency gate uses 2022 because 2022--2026 is the independently defined recent recomposition period. The chronological-integrity condition is evaluated upstream; after correction for the Kipu registration-date anomaly, the frozen Stage-A set contains eight candidates. Because Stage B was formalized ex post, the four-topic outcome is treated as the reference-case classification and its threshold dependence is evaluated explicitly. Sensitivity is evaluated over 36 combinations of the growth-ratio threshold (1.25, 1.50, 1.75), episodicity threshold (0.50, 0.55, 0.60, 0.65) and final-year gate (2021, 2022, 2023). These rules can be prespecified before candidate inspection in future replications.
+The recency gate uses 2022 because 2022--2026 is the independently defined recent recomposition period. The chronological-integrity condition is evaluated upstream; after correction for the Kipu registration-date anomaly, the frozen Stage-A set contains eight candidates. Because Stage B was formalized ex post, the four-topic outcome is treated as the reference-case classification and its threshold dependence is evaluated explicitly. Sensitivity is evaluated over 36 combinations of the growth-ratio threshold (1.25, 1.50, 1.75), episodicity threshold (0.50, 0.55, 0.60, 0.65) and final-year gate (2021, 2022, 2023). These rules can be pre-specified before candidate inspection in future replications.
 
 \subsection{OpenAlex indexed scientific activity}\label{subsec:openalexmethod}
 
@@ -290,7 +300,7 @@ A_{\ell c}=\frac{100}{90}\,
 \label{eq:linecountry}
 \end{equation}
 
-The ten-country comparison comprises Ecuador, Mexico, Spain, Colombia, Peru, Argentina, Bolivia, Brazil, Chile and the United States. This set was pre-specified before the present comparative analysis and is retained as a bounded comparison set. Because OpenAlex coverage and metadata quality vary by language, field and indexing infrastructure, country scores are conditional on database representation; evidence from Latin America suggests broader Spanish-language and SSH coverage than Scopus in some settings, while independent audits also identify language-metadata errors \citep{gallardo2024openalex,cespedes2025linguistic}. The equal-country comparison serves as the scientific reference scenario. A second, alternative strategic scenario weights Ecuador--Mexico--Spain at 60\% and the other seven countries at 40\% when a line-level territorial summary is needed. Robustness checks perturb the component and mapping-role weights and compare the strategic scenario with the equal-country territorial pattern.
+The ten-country comparison comprises Ecuador, Mexico, Spain, Colombia, Peru, Argentina, Bolivia, Brazil, Chile and the United States. This set was pre-specified before the present comparative analysis and is retained as a bounded comparison set. Because \mbox{OpenAlex} coverage and metadata quality vary by language, field and indexing infrastructure, country scores are conditional on database representation; evidence from Latin America suggests broader Spanish-language and SSH coverage than Scopus in some settings, while independent audits also identify language-metadata errors \citep{gallardo2024openalex,cespedes2025linguistic}. The equal-country comparison serves as the scientific reference scenario. A second, alternative strategic scenario weights Ecuador--Mexico--Spain at 60\% and the other seven countries at 40\% when a line-level territorial summary is needed. Robustness checks perturb the component and mapping-role weights and compare the strategic scenario with the equal-country territorial pattern.
 
 \subsection{Research Horizon screening and documentary review}\label{subsec:rhmethod}
 
@@ -313,7 +323,19 @@ The screening records the path from the 11,325-topic export through candidate as
 
 Deterministic and interpretive components have different reproducibility conditions. The topic-model package contains the 3,963 model records, frozen inputs, 768-dimensional embeddings, original five- and two-dimensional UMAP arrays, initial reference clusters, final curated state, parameter files, a version-pinned environment, hashes, notebooks and verification scripts. The anchored five-dimensional UMAP representation allows the clustering state to be checked against stored assignments. Re-projecting embeddings uses a fixed seed but can still vary across software and numerical environments, so the archived arrays define the computational reference. LLM-generated labels and expert decisions are fixed interpretive records rather than deterministic model outputs. This distinction follows the principle that multi-step bibliometric workflows should expose computational operations and input dependencies \citep{guler2016workflows,lee2026evidence}. All reported quantities derive from executed scripts over the frozen data and analytical states.
 
-The robustness design targets the main analytical decisions. First, initial algorithmic and curated thematic states are compared directly. Second, the macro-family cut is varied around the selected threshold. Third, assignment rates and simple preserved-text characteristics are compared for assigned and unassigned records. Fourth, outlier sensitivity is examined in two ways using the frozen SPECTER2 embeddings. An intentionally aggressive stress test assigns every HDBSCAN noise record to its nearest final-topic cosine centroid. A controlled high-confidence scenario reassigns only noise records that exceed the 25th-percentile thresholds of both own-topic centroid similarity and assignment margin observed among mapped records. The reference map remains the primary specification, while these scenarios quantify the dependence of downstream diversity, compositional distance and renewal membership on the outlier policy. Fifth, the two-stage renewal rule is perturbed over 36 threshold combinations. Sixth, the 2017--2021 to 2022--2026 compositional change is recomputed using the complete 2022--2024 subwindow. Seventh, HDBSCAN minimum-cluster-size sensitivity is explored on the archived five-dimensional representation using a cross-implementation perturbation; the reference-like setting is first checked against the frozen initial algorithmic partition with ARI and NMI. The frozen execution environment does not support an exact historical UMAP $n\_neighbors$ rerun, so neighborhood coherence is inspected at 10, 15, 20 and 30 nearest neighbors in the original 768-dimensional embedding space. This provides a semantic-neighborhood-scale diagnostic that is analytically distinct from a UMAP-parameter sensitivity test. Finally, the OpenAlex geographic conclusions are compared under equal-country and 60/40 territorial scenarios and under 5,000 Monte Carlo perturbations of component and mapping-role weights. One expert produced the original classifications; retrospective double coding of the preserved corpora would provide inter-rater validation. Detailed results appear in Appendix~\ref{app:robustness}, and the Data Availability Statement summarizes the reproducibility package.
+The robustness design targets the main analytical decisions:
+\begin{itemize} 
+    \item First, initial algorithmic and curated thematic states are compared directly. 
+    \item Second, the macro-family cut is varied around the selected threshold. 
+    \item Third, assignment rates and simple preserved-text characteristics are compared for assigned and unassigned records. 
+    \item Fourth, outlier sensitivity is examined in two ways using the frozen SPECTER2 embeddings. An intentionally aggressive stress test assigns every HDBSCAN noise record to its nearest final-topic cosine centroid. A controlled high-confidence scenario reassigns only noise records that exceed the 25th-percentile thresholds of both own-topic centroid similarity and assignment margin observed among mapped records. The reference map remains the primary specification, while these scenarios quantify the dependence of downstream diversity, compositional distance and renewal membership on the outlier policy.
+    \item Fifth, the two-stage renewal rule is perturbed over 36 threshold combinations. 
+    \item Sixth, the 2017--2021 to 2022--2026 compositional change is recomputed using the complete 2022--2024 subwindow.
+    \item Seventh, HDBSCAN minimum-cluster-size sensitivity is explored on the archived five-dimensional representation using a cross-implementation perturbation; the reference-like setting is first checked against the frozen initial algorithmic partition with ARI and NMI. The frozen execution environment does not support an exact historical UMAP $n\_neighbors$ rerun, so neighborhood coherence is inspected at 10, 15, 20 and 30 nearest neighbors in the original 768-dimensional embedding space. This provides a semantic-neighborhood-scale diagnostic that is analytically distinct from a UMAP-parameter sensitivity test. 
+    \item Finally, the OpenAlex geographic conclusions are compared under equal-country and 60/40 territorial scenarios and under 5,000 Monte Carlo perturbations of component and mapping-role weights. One expert produced the original classifications; retrospective double coding of the preserved corpora would provide inter-rater validation. 
+\end{itemize}
+
+Detailed results appear in Appendix~\ref{app:robustness}, and the Data Availability Statement summarizes the reproducibility package.
 
 \section{Results: longitudinal proof-of-concept}\label{sec:results}
 
@@ -325,7 +347,7 @@ The catalogue contained 4,142 valid book records after upstream consolidation. T
 
 The non-assigned share is substantial, but it is not concentrated in a single historical decade. Among semantically eligible records, assignment rates were 65.2\% in 1978--1989, 64.0\% in the 1990s, 59.7\% in the 2000s, 58.2\% in the 2010s and 59.2\% in 2020--2026. The decline from the earliest periods is moderate rather than discontinuous. This pattern is consistent with the interpretation of HDBSCAN noise as the complement of stable density regions, while also leaving open the possibility that historical differences in metadata richness affect assignment probabilities.
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Corpus funnel and semantic assignment coverage}\label{tab:funnel}
 \small
 \begin{tabularx}{\textwidth}{@{}YrrY@{}}
@@ -343,7 +365,7 @@ Outside semantic eligibility & 179 & 4.3\% of valid books & Remain part of the v
 
 The initial algorithmic partition contained 70 clusters before expert curation. The documented structural curation produced 68 final analytical topics while preserving the same 2,383 assigned books. A document-level comparison identifies 389 records whose topic identifier changed, equivalent to 9.82\% of the 3,963 semantically eligible records. The intervention therefore affected a limited subset rather than replacing the algorithmic structure wholesale. It changed the global distribution modestly: concentration decreased from $HHI=0.0316$ to $0.0259$, while Hill diversity of order 1 increased from 49.83 to 51.10. In the curated map, Hill diversity of order 2 is 38.60. These changes follow from splitting a broad mixed cluster and consolidating the four Kipu segments into a documentary-series topic.
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Initial algorithmic and expert-curated thematic states}\label{tab:auto_curated}
 \small
 \begin{tabularx}{\textwidth}{@{}YrrY@{}}
@@ -369,7 +391,7 @@ The preserved fields do not support a complete diagnosis of why records became n
 
 The final map contains 68 topics organized into nine hierarchical macro-families. Figure~\ref{fig:thematicmap} displays the 2,383 mapped books in the two-dimensional UMAP visualization, with topic centroids superimposed and the nine focal lines labelled. The two-dimensional coordinates are used only for visualization; topic membership derives from the five-dimensional clustering representation described in Section~\ref{subsec:topicmodel}.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/Fig3_thematic_map.pdf}
 \caption{General thematic map of the final curated catalogue. Each point is a book assigned to one of 68 analytical topics; colours identify the nine macro-families produced by the hierarchical cut. Only the centroids of the nine focal lines and the Kipu documentary series are marked and labelled. The two-dimensional UMAP layout is used for visualization; cluster membership derives from the five-dimensional clustering representation.}\label{fig:thematicmap}
@@ -379,7 +401,7 @@ The topic-size distribution is broad rather than dominated by a few clusters. Th
 
 Long persistence is nevertheless widespread. Forty-six topics are active in at least four decades and together contain 1,952 books, or 81.9\% of mapped records. Eighteen topics appear in all five long-run decades used for the persistence calculation and account for 1,157 books (48.6\%). Persistence should not be read as uniform annual continuity: for example, \emph{Education and autonomy of Indigenous peoples} is active in 35 of the 37 years between its first and last mapped records, whereas \emph{Amazonian literature and culture} is active in 27 of 38 years. These distinctions motivate retaining persistence and continuity as separate profile dimensions.
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Largest final topics and their longitudinal characteristics}\label{tab:largesttopics}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -407,13 +429,13 @@ The nine macro-families are an interpretive higher-order organization rather tha
 
 The catalogue grows unevenly over the observation period. Figure~\ref{fig:longitudinal} combines annual catalogue and mapped-book counts with the separate sequence of adjacent, non-overlapping windows used for compositional distance; the incomplete 2025--2026 tail is marked explicitly. The 1978--1986 prelude contains only 17 valid books and 13 mapped books. Volume subsequently expands: 1987--1998 contains 870 valid and 513 mapped books; 1999--2008 contains 1,001 valid and 551 mapped books; and 2009--2014 reaches the maximum six-year volume with 1,073 valid and 612 mapped books. The annual valid-book count peaks at 242 in 2013. The following windows contain 844 valid and 488 mapped books in 2015--2021 and 337 valid and 206 mapped books in 2022--2026. The last window includes partial 2025--2026 catalogue coverage and is therefore interpreted primarily as a composition signal rather than a finalized volume estimate.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/Fig4_longitudinal.pdf}
 \caption{Longitudinal catalogue volume and compositional change. The upper panel distinguishes annual valid catalogue books from books assigned to stable topics and marks 2025--2026 as partial catalogue coverage. The lower panel reports cosine distance between adjacent, non-overlapping analysis windows: the 1978--1986 prelude followed by five-year blocks. The 2017--2021 to 2022--2026 transition has a distance of 0.363; the complete 2022--2024 check yields 0.371.}\label{fig:longitudinal}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Catalogue volume and mapped books by analytical period}\label{tab:periods}
 \small
 \begin{tabularx}{\textwidth}{@{}YrrrY@{}}
@@ -430,7 +452,7 @@ Period & Valid books & Mapped books & Mapped / valid & Analytical reading \\
 \end{tabularx}
 \end{table}
 
-Compositional change varies independently of total output. The transition from the small prelude to 1987--1991 has the largest raw distance (0.679), as expected from the very small initial base. Excluding that discontinuity, the 2017--2021 to 2022--2026 transition has the largest adjacent-window distance, 0.363. Earlier post-foundation distances range from 0.168 to 0.333. Restricting the recent window to the complete 2022--2024 years yields a slightly larger distance of 0.371, so incomplete 2025--2026 coverage does not account for the recent shift. Under the controlled high-confidence outlier reassignment, the corresponding distances are 0.334 and 0.341. The recent catalogue therefore differs in composition from the 2010s portfolio, although the magnitude of recomposition depends on how diffuse records are treated. The direction of change is selective rather than wholesale because many large historical topics remain active while a limited group of smaller lines increases its recent share.
+Compositional change varies independently of total output. The transition from the small prelude to 1987--1991 has the largest raw distance (0.679), as expected from the very small initial base. Excluding that discontinuity, the 2017--2021 to 2022--2026 transition has the largest adjacent-window distance, 0.363. Earlier post-foundation distances range from 0.168 to 0.333. Restricting the recent window to the complete 2022--2024 years yields a slightly larger distance of 0.371, so incomplete 2025--2026 coverage does not account for the recent shift. Under the controlled high-confidence outlier reassignment, the corresponding distances are 0.334 and 0.341. The recent catalogue therefore differs from the 2010s portfolio, although the magnitude of recomposition depends on how diffuse records are treated. The direction of change is selective rather than wholesale because many large historical topics remain active while a limited group of smaller lines increases its recent share.
 
 This pattern provides the first answer to RQ1. Long-run thematic structure is characterized simultaneously by high persistence, distributed topic diversity and episodic changes in composition, which are captured by separate longitudinal statistics.
 
@@ -438,7 +460,7 @@ This pattern provides the first answer to RQ1. Long-run thematic structure is ch
 
 Figure~\ref{fig:profiles} compares the five continuous internal dimensions across the nine focal editorial lines. Historically accumulated lines have different internal signatures. \emph{Education and Indigenous autonomy} combines maximum relative volume and persistence with 94.6 on continuity and within-family prominence of 100. \emph{Engineering and technology} is nearly as large (98.1 on relative volume) and persists across all five decades, but its recent-growth signal is only 32.5 because its 2015--2026 output is lower relative to the 2003--2014 base. \emph{Histories, migration and speculative narratives} also combines high volume and long persistence, while its continuity is lower than that of the education line.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/Fig5_internal_profiles.pdf}
 \caption{Five-dimensional internal thematic profiles for the nine focal editorial lines. Components use the 0--100 display scaling defined in Table~\ref{tab:internaldims}; each column retains its own operational meaning and is interpreted dimension by dimension. Diamonds identify lines that independently satisfy the reference two-stage substantive-renewal rule.}\label{fig:profiles}
@@ -446,7 +468,7 @@ Figure~\ref{fig:profiles} compares the five continuous internal dimensions acros
 
 The three lines added to the external analysis because of renewal have a contrasting profile. \emph{Inclusive educational innovation} has a relative volume of 26.1 and persistence of 60, but continuity of 81.2 and the maximum recent-growth signal. \emph{Gender rights and violence} and \emph{Intercultural bilingual education} also have modest accumulated volume but maximum recent-growth scores. Amazonian literature and culture is the fourth renewed line; it was already included among the historically relevant lines and therefore does not add a tenth focal line. The profiles show that a relatively small stock can coexist with a strong current trajectory, while a very large historical stock can coexist with weaker recent growth.
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Internal profile of the nine focal editorial lines}\label{tab:profiles}
 \small
 \begin{tabularx}{\textwidth}{@{}Yrrrrrrr@{}}
@@ -468,13 +490,13 @@ Histories, migration and speculative narratives & 137 & 91.4 & 100 & 79.2 & 34.9
 
 Two final topics are classified as emergent under the first-active-year cutoff: \emph{Decolonial pedagogies and insurgent practices} (2013) and \emph{Yánkuam diaries in Peru and Ecuador} (2018). They remain in the thematic map and are handled separately from the expansion screen. Stage A of the renewal procedure identifies eight expansion candidates among the non-emergent topics, and Stage B reduces these to four through topic-independent decision rules. Figure~\ref{fig:renewal} makes the logic visible. Three candidates---urban social inclusion, digital media and social networks and citizen/multidimensional communication---have large recent-to-previous ratios but concentrate at least 60\% of their output in only three years, satisfying the pre-existing episodicity rule. Socio-environmental mining conflicts is not episodic, but its last mapped book is from 2020 and it therefore fails the 2022 recency gate. The four surviving lines are Amazonian literature and culture (38 vs. 13 books, ratio 2.92), inclusive educational innovation (27 vs. 12, ratio 2.25), intercultural bilingual education (19 vs. 12, ratio 1.58) and gender rights and violence (24 vs. 16, ratio 1.50).
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/Fig6_renewal.pdf}
 \caption{Two-stage renewal classification for the eight current expansion candidates. The horizontal dashed line marks the 60\% top-three-year concentration threshold used by the episodicity rule; the vertical line marks the Stage-A growth-ratio threshold. The mining-conflict topic is non-episodic but is excluded because its last active year is 2020.}\label{fig:renewal}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Audit trail for substantive recent renewal}\label{tab:renewal}
 \small
 \begin{tabularx}{\textwidth}{@{}YrrrrY@{}}
@@ -493,13 +515,13 @@ Socio-environmental mining conflicts & 12 & 5 & 2.40 & 58.8\% & Excluded; last a
 \end{tabularx}
 \end{table}
 
-The comparison resolves a potential ambiguity in the term ``expansion.'' A fourfold increase is not necessarily substantive renewal when production is highly concentrated in a few years. Conversely, a ratio of 1.50 can qualify under the reference rule when the trajectory is non-episodic and remains active in the recent recomposition period. The four reference renewals are preserved under the controlled high-confidence outlier reassignment, but Stage-B threshold perturbation shows that exact membership is not invariant. Across 36 combinations of the growth-ratio threshold (1.25--1.75), episodicity threshold (50--65\%) and final-year gate (2021--2023), the number of renewals ranges from one to seven. Amazonian literature and culture is retained in all scenarios, inclusive educational innovation in 75.0\% and gender rights and intercultural bilingual education in 66.7\% each. RQ1 is therefore answered by an executable reference classification whose general validity can be tested through prespecified cross-publisher replication.
+The comparison resolves a potential ambiguity in the term ``expansion.'' A fourfold increase is not necessarily substantive renewal when production is highly concentrated in a few years. Conversely, a ratio of 1.50 can qualify under the reference rule when the trajectory is non-episodic and remains active in the recent recomposition period. The four reference renewals are preserved under the controlled high-confidence outlier reassignment, but Stage-B threshold perturbation shows that exact membership is not invariant. Across 36 combinations of the growth-ratio threshold (1.25--1.75), episodicity threshold (50--65\%) and final-year gate (2021--2023), the number of renewals ranges from one to seven. Amazonian literature and culture is retained in all scenarios, inclusive educational innovation in 75.0\% and gender rights and intercultural bilingual education in 66.7\% each. RQ1 is therefore answered by an executable reference classification whose general validity can be tested through pre-specified cross-publisher replication.
 
 \subsection{Indexed scientific activity across focal lines and countries}\label{subsec:openalexres}
 
 OpenAlex produces a different view because the unit of comparison is scientific activity around mapped topics rather than books in the \ABYA catalogue. Figure~\ref{fig:openalex} reports the 90 line-country scores. Averaged over the nine lines, the United States has the highest comparative score among the ten pre-specified countries (71.47), followed by Spain (53.74), Brazil (52.36), Mexico (42.94), Argentina (36.99) and Chile (36.41). Ecuador's mean is 23.51 and Bolivia's 9.06. These values describe the relative configuration of the selected OpenAlex topics within this bounded ten-country comparison.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/Fig7_openalex_heatmap.pdf}
 \caption{OpenAlex indexed scientific activity for the nine focal editorial lines across ten pre-specified countries. Cells report the line-country comparative score derived from mapped OpenAlex topics. The score is a comparative measure of indexed activity conditional on the selected topics, countries, period and normalization procedure; its measurement scope is the bounded design used here.}\label{fig:openalex}
@@ -507,7 +529,7 @@ OpenAlex produces a different view because the unit of comparison is scientific 
 
 The geography varies by editorial line. The United States has the highest score for seven of the nine lines, including engineering and technology (93.62), histories and migration (86.63), gender rights and violence (78.80), intercultural bilingual education (74.32) and inclusive educational innovation (74.43). Two lines differ. Argentina leads Indigenous movement and plurinationality with 67.88, ahead of Spain (61.72) and Brazil (61.08). Brazil leads Amazonian literature and culture with 62.14, narrowly ahead of the United States (60.97) and Spain (60.84). The result therefore supports a topic-by-territory reading rather than a single geographical hierarchy.
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Highest OpenAlex line-country mapped-topic activity scores within the ten-country comparison}\label{tab:openalex_top}
 \small
 \begin{tabularx}{\textwidth}{@{}Yp{0.22\textwidth}rp{0.22\textwidth}r@{}}
@@ -535,17 +557,14 @@ These findings answer RQ3 within the scope of the pre-specified comparison. Inde
 
 The Research Horizon layer further separates preliminary metadata affinity from document-supported retention. Structured screening produced 30 Priority-1 candidate clusters whose corpora contained 1,084 paper records. Corpus-wide documentary review of titles, abstracts, keywords, subject fields, affiliations and representative papers retained 23 clusters as principal, complementary or specific sublines; four were placed in reserve and three were excluded. Across the 23 retained clusters, seven are principal, six complementary and ten specific sublines.
 
-\begin{figure}[t]
+Figure~\ref{fig:researchfronts} reports the retained-candidate fraction for each of the nine focal lines. The adjacent labels give the retained and reviewed counts ($r/n$). Table~\ref{tab:rhsummary} provides a detailed breakdown of principal, complementary, specific-subline, reserve and excluded classifications.
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/Fig8_research_fronts.pdf}
-\caption{Research Horizon retained-candidate fraction for the nine focal lines after corpus-wide documentary review. Each point gives the retained share within the screened Priority-1 set; adjacent labels report the retained and reviewed counts ($r/n$). Detailed principal, complementary, specific-subline, reserve and excluded classifications are reported in Table~\ref{tab:rhsummary}.}\label{fig:researchfronts}
+\caption{Research Horizon retained-candidate fraction for the nine focal lines after corpus-wide documentary review. Each point gives the retained share within the screened Priority-1 set; adjacent labels report the retained and reviewed counts ($r/n$).}\label{fig:researchfronts}
 \end{figure}
 
-Retention is complete for four focal lines: intercultural bilingual education retains 3/3 candidates, engineering and technology 6/6, inclusive educational innovation 3/3 and gender rights and violence 4/4. Education and Indigenous autonomy also retains both screened candidates (2/2). Anthropology and archaeology and histories/migration each retain 2/3. Amazonian literature and culture retains 1/3. Indigenous movement and plurinationality retains none of its three Priority-1 candidates.
-
-Two cases show why corpus-wide documentary review matters. Indigenous movement and plurinationality had an average preliminary affinity of 91.7/100 across its three candidates, yet two were placed in reserve and one was excluded. Amazonian literature and culture had an even higher preliminary average (94.7) but only one complementary cluster was retained; one candidate remained in reserve and one was excluded. High preliminary affinity therefore does not guarantee that a screened candidate survives documentary review.
-
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Research Horizon documentary-review outcomes for the nine focal lines}\label{tab:rhsummary}
 \small
 \setlength{\tabcolsep}{3pt}
@@ -566,25 +585,34 @@ Histories, migration and speculative narratives & 3 & 1 & 1 & 0 & 0 & 1 & 2/3 (0
 \end{tabularx}
 \end{table}
 
+
+Retention is complete for four focal lines: intercultural bilingual education retains 3/3 candidates, engineering and technology 6/6, inclusive educational innovation 3/3 and gender rights and violence 4/4. Education and Indigenous autonomy also retains both screened candidates (2/2). Anthropology and archaeology and histories/migration each retain 2/3. Amazonian literature and culture retains 1/3. Indigenous movement and plurinationality retains none of its three Priority-1 candidates.
+
+Two cases show why corpus-wide documentary review matters. Indigenous movement and plurinationality had an average preliminary affinity of 91.7/100 across its three candidates, yet two were placed in reserve and one was excluded. Amazonian literature and culture had an even higher preliminary average (94.7) but only one complementary cluster was retained; one candidate remained in reserve and one was excluded. High preliminary affinity therefore does not guarantee that a screened candidate survives documentary review.
+
+
 These results answer RQ4 only within the screened candidate universe. The retained fraction deliberately exposes candidate-set size instead of converting the outcome into an ordinal category whose attainable ceiling would depend on the number of candidates screened. Because candidate generation is expert-assisted and not exhaustive over the 11,325-topic universe, $H_{\ell}$ is interpreted as the share of screened candidates that survives documentary review. Its denominator is line-specific, and the measure is not calibrated as a global frontier-proximity probability.
 
 \subsection{Cross-layer configurations and answers to the research questions}\label{subsec:integratedresults}
 
 Figure~\ref{fig:integrated} compares the three sources. The horizontal axis gives the equal-country mean of OpenAlex mapped-topic activity, and the vertical axis gives the Research Horizon retained-candidate fraction. Both use their native descriptive scales; marker shape identifies the four reference renewals.
 
-\begin{figure}[t]
+\begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/Fig9_integrated_matrix.pdf}
 \caption{Cross-layer configuration of the nine focal editorial lines. The horizontal axis is the equal-country mean OpenAlex mapped-topic activity score; the vertical axis is the Research Horizon retained-candidate fraction. Diamonds identify the four reference renewals and circles the remaining lines. Both axes use their native descriptive scales.}\label{fig:integrated}
 \end{figure}
 
-Three recurring configurations are visible. First, some lines with high historical volume also show relatively high indexed scientific activity, but their screening outcomes differ. Engineering and technology combines very high internal volume and persistence with the highest United States OpenAlex score and retains all six screened Research Horizon sublines. Anthropology and archaeology has lower internal volume but full persistence, within-family prominence and two of three candidates retained. Education and Indigenous autonomy has the largest internal stock and retains both screened candidates.
+Three recurring configurations are visible.
+\begin{itemize}
+\item First, some lines with high historical volume also show relatively high indexed scientific activity, but their screening outcomes differ. Engineering and technology combines very high internal volume and persistence with the highest United States OpenAlex score and retains all six screened Research Horizon sublines. Anthropology and archaeology has lower internal volume but full persistence, within-family prominence and two of three candidates retained. Education and Indigenous autonomy has the largest internal stock and retains both screened candidates.
 
-Second, recent renewal can coexist with a smaller historical stock. Intercultural bilingual education, inclusive educational innovation and gender rights and violence have internal volume scores below 30, satisfy the reference renewal rule and retain all screened Research Horizon candidates. Their profiles reflect current trajectories and full retention among screened candidates rather than high historical volume.
+\item Second, recent renewal can coexist with a smaller historical stock. Intercultural bilingual education, inclusive educational innovation and gender rights and violence have internal volume scores below 30, satisfy the reference renewal rule and retain all screened Research Horizon candidates. Their profiles reflect current trajectories and full retention among screened candidates rather than high historical volume.
 
-Third, a strong internal profile can diverge from research-front evidence. Indigenous movement and plurinationality has 92 mapped books, activity in all five decades and 86.8 continuity, yet none of its three high-scoring preliminary Research Horizon candidates is retained. Amazonian literature and culture satisfies the reference renewal rule and has a strong Brazil-centered OpenAlex profile, but retains only one of three screened candidates. These cases show that internal thematic strength, indexed scientific activity and research-front retention are not interchangeable.
+\item Third, a strong internal profile can diverge from research-front evidence. Indigenous movement and plurinationality has 92 mapped books, activity in all five decades and 86.8 continuity, yet none of its three high-scoring preliminary Research Horizon candidates is retained. Amazonian literature and culture satisfies the reference renewal rule and has a strong Brazil-centered OpenAlex profile, but retains only one of three screened candidates. These cases show that internal thematic strength, indexed scientific activity and research-front retention are not interchangeable.
+\end{itemize}
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Research-question traceability in the proof-of-concept}\label{tab:rqanswers}
 \small
 \begin{tabularx}{\textwidth}{@{}p{0.08\textwidth}Y Y@{}}
@@ -615,7 +643,7 @@ This longitudinal view connects publisher analysis to topic-evolution research b
 
 The internal profile keeps volume, persistence, continuity, recent growth and within-family prominence separate, revealing configurations that an aggregate score would obscure. A high-volume line need not be continuous or recently growing, and a smaller line may be prominent within its family. This design is consistent with responsible-evaluation principles emphasizing contextualized indicators and informed judgment \citep{hicks2015leiden}, and with bibliodiversity research treating format, language, geography and infrastructure as separate dimensions \citep{angioni2026bibliodiversity}.
 
-The two-stage renewal analysis applies the same principle at line level. High recent growth can arise from a short episodic concentration, whereas a smaller growth ratio can satisfy continuity and recency conditions. The 36-scenario grid confirms that exact membership is parameter-dependent: Amazonian literature and culture is retained throughout, while the other reference lines are less stable. Future applications should therefore prespecify renewal thresholds and test their sensitivity within each catalogue.
+The two-stage renewal analysis applies the same principle at line level. High recent growth can arise from a short episodic concentration, whereas a smaller growth ratio can satisfy continuity and recency conditions. The 36-scenario grid confirms that exact membership is parameter-dependent: Amazonian literature and culture is retained throughout, while the other reference lines are less stable. Future applications should therefore pre-specify renewal thresholds and test their sensitivity within each catalogue.
 
 \subsection{Documented expert curation as an inspectable analytical layer}
 
@@ -641,7 +669,7 @@ Combining the sources shows how historical volume, recent renewal, indexed activ
 
 More generally, the sequence illustrates a pattern for knowledge-enhanced analytical systems. Heterogeneous texts become explicit topics, machine-learning output remains open to review, expert intervention is documented and structured external sources enrich the analysis without producing an opaque score. Each source continues to answer its original question rather than becoming a proxy for the others. Because every step remains traceable, the basis of cross-source interpretations can be inspected directly. This pattern may inform digital libraries, scientific data platforms, open knowledge systems and knowledge-enhanced web intelligence. The present proof-of-concept applies it to one publisher catalogue; it does not implement ontology reasoning, knowledge-graph reasoning or a natural-language interface.
 
-The framework is modular: the catalogue can be analyzed alone, and external sources or new indicators can be added when the research question and available metadata justify them. Their definitions, derivation and relation to the internal topics must remain explicit. This design supports cross-publisher replication while leaving case-specific thresholds and mappings open to prespecification and validation.
+The framework is modular: the catalogue can be analyzed alone, and external sources or new indicators can be added when the research question and available metadata justify them. Their definitions, derivation and relation to the internal topics must remain explicit. This design supports cross-publisher replication while leaving case-specific thresholds and mappings open to pre-specification and validation.
 
 \subsection{Limitations}\label{subsec:limitations}
 
@@ -661,7 +689,7 @@ The most recent catalogue years are incomplete. Records for 2025 and 2026 reflec
 
 Raw-row exclusions are only partially traceable. The frozen source contains 8,399 rows and 4,142 valid books but no row-level reason for each of the 4,257 exclusions. At least three duplicate pairs remain after upstream cleaning. Three known excess records represent at most 0.126\% of the 2,383 mapped books overall; if all occurred in a ten-book topic, they would inflate its count by 30\%. Small differences among low-volume topics are therefore interpreted cautiously.
 
-Finally, the renewal rule was formalized retrospectively. The 36 scenarios yield one to seven renewals, with Amazonian literature and culture retained in every combination. Future replications should prespecify the growth-ratio, concentration, recency, 2013 emergence cut and 2003--2014/2015--2026 windows. The same principle applies to expert-defined OpenAlex role weights: Monte Carlo perturbation measures weight dependence, while independent coding would assess reliability.
+Finally, the renewal rule was formalized retrospectively. The 36 scenarios yield one to seven renewals, with Amazonian literature and culture retained in every combination. Future replications should pre-specify the growth-ratio, concentration, recency, 2013 emergence cut and 2003--2014/2015--2026 windows. The same principle applies to expert-defined OpenAlex role weights: Monte Carlo perturbation measures weight dependence, while independent coding would assess reliability.
 
 
 \section{Conclusions and future work}\label{sec:conclusion}
@@ -674,9 +702,15 @@ The external sources add complementary information. OpenAlex identifies line-spe
 
 The transferable contribution is the analytical architecture: preserved algorithmic and curated states, an explicit audit trail for interpretation, separate longitudinal measures and documented links between the internal map and external scientific infrastructures. The case establishes feasibility and identifies renewal thresholds, focal-line definitions, country sets, hierarchy cuts and screening procedures as parameters for independent cross-publisher validation.
 
-Future work should proceed through four concrete validation routes. Cross-publisher replication can test the stability and usefulness of the profile dimensions across university, commercial, disciplinary and multilingual presses. Independent double coding of topic labels, OpenAlex mappings and preserved Research Horizon corpora can quantify inter-rater agreement. Original-language title-and-abstract corpora can support translation audits and multilingual embedding comparisons. Finally, persistent book identifiers can extend the external layer toward direct evidence of circulation or influence through citations, library holdings, translations or co-editions.
+Future work should proceed through four concrete validation routes:
+\begin{itemize}
+\item Cross-publisher replication can test the stability and usefulness of the profile dimensions across university, commercial, disciplinary and multilingual presses. 
+\item Independent double coding of topic labels, OpenAlex mappings and preserved Research Horizon corpora can quantify inter-rater agreement. 
+\item Original-language title-and-abstract corpora can support translation audits and multilingual embedding comparisons. 
+\item Persistent book identifiers can extend the external layer toward direct evidence of circulation or influence through citations, library holdings, translations or co-editions.
+\end{itemize}   
 
-Taken together, the study shows how a publisher catalogue can be treated as a longitudinal knowledge structure and compared with external evidence without conflating editorial development, indexed scientific activity and research-front relevance.
+Overall, the study shows how a publisher catalogue can be treated as a longitudinal knowledge structure and compared with external evidence without conflating editorial development, indexed scientific activity and research-front relevance.
 
 \vspace{6pt}
 
