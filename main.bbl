@@ -4,17 +4,17 @@
 Hicks, D.
 \newblock The four literatures of social science. In {\em Handbook of
   Quantitative Science and Technology Research}; Moed, H.F.; Gl{\"a}nzel, W.;
-  Schmoch, U., Eds.; Springer: Dordrecht,  2004; pp. 473--496.
+  Schmoch, U., Eds.; Springer: Dordrecht, The Netherlands,  2004; pp. 473--496.
 \newblock {\url{https://doi.org/10.1007/1-4020-2755-9_22}}.
 
 \bibitem[Kulczycki et~al.(2018)Kulczycki, Engels, P{\"o}l{\"o}nen, Bruun,
-  Du\v{s}kov{\'a}, Guns, Nowotniak, Petr, Sivertsen, Star\v{c}i\v{c}, and
-  Zuccala]{kulczycki2018publication}
+  Du\v{s}kov{\'a}, Guns, Nowotniak, Petr, Sivertsen,
+  Isteni\v{c}~Star\v{c}i\v{c}, and Zuccala]{kulczycki2018publication}
 Kulczycki, E.; Engels, T.C.E.; P{\"o}l{\"o}nen, J.; Bruun, K.; Du\v{s}kov{\'a},
-  M.; Guns, R.; Nowotniak, R.; Petr, M.; Sivertsen, G.; Star\v{c}i\v{c}, A.I.;
-  et~al.
+  M.; Guns, R.; Nowotniak, R.; Petr, M.; Sivertsen, G.;
+  Isteni\v{c}~Star\v{c}i\v{c}, A.;  et~al.
 \newblock Publication patterns in the social sciences and humanities: Evidence
-  from eight European countries.
+  from eight {European} countries.
 \newblock {\em Scientometrics} {\bf 2018}, {\em 116},~463--486.
 \newblock {\url{https://doi.org/10.1007/s11192-018-2711-0}}.
 
@@ -47,19 +47,18 @@ White, H.D.; Boell, S.K.; Yu, H.; Davis, M.; Wilson, C.S.; Cole, F.T.H.
 
 \bibitem[Kousha et~al.(2011)Kousha, Thelwall, and Rezaie]{kousha2011books}
 Kousha, K.; Thelwall, M.; Rezaie, S.
-\newblock Assessing the citation impact of books: The role of Google Books,
-  Google Scholar, and Scopus.
+\newblock Assessing the citation impact of books: The role of {Google Books},
+  {Google Scholar}, and {Scopus}.
 \newblock {\em Journal of the American Society for Information Science and
   Technology} {\bf 2011}, {\em 62},~2147--2164.
 \newblock {\url{https://doi.org/10.1002/asi.21608}}.
 
 \bibitem[Torres-Salinas et~al.(2014)Torres-Salinas, Robinson-Garc{\'i}a,
-  Jim{\'e}nez-Contreras, and Delgado
-  L{\'o}pez-C{\'o}zar]{torres2014bookcitation}
-Torres-Salinas, D.; Robinson-Garc{\'i}a, N.; Jim{\'e}nez-Contreras, E.; Delgado
+  Campanario, and Delgado L{\'o}pez-C{\'o}zar]{torres2014bookcitation}
+Torres-Salinas, D.; Robinson-Garc{\'i}a, N.; Campanario, J.M.; Delgado
   L{\'o}pez-C{\'o}zar, E.
 \newblock Coverage, field specialisation and the impact of scientific
-  publishers indexed in the Book Citation Index.
+  publishers indexed in the {Book Citation Index}.
 \newblock {\em Online Information Review} {\bf 2014}, {\em 38},~24--42.
 \newblock {\url{https://doi.org/10.1108/OIR-10-2012-0169}}.
 
@@ -87,22 +86,23 @@ Chen, C.
 
 \bibitem[Blei et~al.(2003)Blei, Ng, and Jordan]{blei2003lda}
 Blei, D.M.; Ng, A.Y.; Jordan, M.I.
-\newblock Latent Dirichlet Allocation.
+\newblock Latent {Dirichlet} allocation.
 \newblock {\em Journal of Machine Learning Research} {\bf 2003}, {\em
   3},~993--1022.
 
 \bibitem[Blei and Lafferty(2006)]{blei2006dynamic}
 Blei, D.M.; Lafferty, J.D.
 \newblock Dynamic topic models.
-\newblock In Proceedings of the Proceedings of the 23rd International
-  Conference on Machine Learning,  2006, pp. 113--120.
+\newblock In Proceedings of the 23rd International Conference on Machine
+  Learning (ICML 2006), Pittsburgh, PA, USA,  25--29 June 2006; pp. 113--120.
 \newblock {\url{https://doi.org/10.1145/1143844.1143859}}.
 
 \bibitem[Grootendorst(2022)]{grootendorst2022bertopic}
 Grootendorst, M.
 \newblock {BERTopic}: Neural topic modeling with a class-based {TF-IDF}
   procedure.
-\newblock {\em arXiv preprint arXiv:2203.05794} {\bf 2022}.
+\newblock {\em arXiv} {\bf 2022}.
+\newblock arXiv:2203.05794, {\url{https://doi.org/10.48550/arXiv.2203.05794}}.
 
 \bibitem[Schaefermeier et~al.(2021)Schaefermeier, Stumme, and
   Hanika]{schaefermeier2021topicspace}
@@ -148,8 +148,8 @@ Nederhof, A.J.
 
 \bibitem[Gim{\'e}nez-Toledo(2020)]{gimenez2020books}
 Gim{\'e}nez-Toledo, E.
-\newblock Why Books are Important in the Scholarly Communication System in
-  Social Sciences and Humanities.
+\newblock Why books are important in the scholarly communication system in
+  social sciences and humanities.
 \newblock {\em Scholarly Assessment Reports} {\bf 2020}, {\em 2},~6.
 \newblock {\url{https://doi.org/10.29024/sar.14}}.
 
@@ -158,8 +158,8 @@ Gim{\'e}nez-Toledo, E.
   and Zuccala]{gimenez2019books}
 Gim{\'e}nez-Toledo, E.; Ma\~{n}ana Rodr{\'i}guez, J.; Engels, T.C.E.; Guns, R.;
   Kulczycki, E.; Ochsner, M.; P{\"o}l{\"o}nen, J.; Sivertsen, G.; Zuccala, A.A.
-\newblock Taking scholarly books into account, part II: a comparison of 19
-  European countries in evaluation and funding.
+\newblock Taking scholarly books into account, part {II}: a comparison of 19
+  {European} countries in evaluation and funding.
 \newblock {\em Scientometrics} {\bf 2019}, {\em 118},~233--251.
 \newblock {\url{https://doi.org/10.1007/s11192-018-2956-7}}.
 
@@ -175,16 +175,16 @@ Zuccala, A.; Guns, R.; Cornacchia, R.; Bod, R.
 \bibitem[Hicks et~al.(2015)Hicks, Wouters, Waltman, de~Rijcke, and
   Rafols]{hicks2015leiden}
 Hicks, D.; Wouters, P.; Waltman, L.; de~Rijcke, S.; Rafols, I.
-\newblock Bibliometrics: The Leiden Manifesto for research metrics.
+\newblock Bibliometrics: The {Leiden Manifesto} for research metrics.
 \newblock {\em Nature} {\bf 2015}, {\em 520},~429--431.
 \newblock {\url{https://doi.org/10.1038/520429a}}.
 
 \bibitem[Angioni et~al.(2026)Angioni, Baglioni, and
   Mannocci]{angioni2026bibliodiversity}
 Angioni, S.; Baglioni, M.; Mannocci, A.
-\newblock Operationalising bibliodiversity via the OpenAIRE Graph: a
+\newblock Operationalising bibliodiversity via the {OpenAIRE Graph}: a
   multidimensional demonstration.
-\newblock {\em Scientometrics} {\bf 2026}.
+\newblock {\em Scientometrics} {\bf 2026}, {\em 131},~6811--6837.
 \newblock {\url{https://doi.org/10.1007/s11192-026-05732-9}}.
 
 \bibitem[B{\"o}rner et~al.(2003)B{\"o}rner, Chen, and
@@ -209,31 +209,34 @@ van Eck, N.J.; Waltman, L.
 \newblock {\em Scientometrics} {\bf 2010}, {\em 84},~523--538.
 \newblock {\url{https://doi.org/10.1007/s11192-009-0146-3}}.
 
-\bibitem[Chang et~al.(2009)Chang, Gerrish, Wang, Boyd-Graber, and
+\bibitem[Chang et~al.(2009)Chang, Boyd-Graber, Gerrish, Wang, and
   Blei]{chang2009tea}
-Chang, J.; Gerrish, S.; Wang, C.; Boyd-Graber, J.; Blei, D.M.
-\newblock Reading tea leaves: How humans interpret topic models.
-\newblock In Proceedings of the Advances in Neural Information Processing
-  Systems 22,  2009, pp. 288--296.
+Chang, J.; Boyd-Graber, J.; Gerrish, S.; Wang, C.; Blei, D.M.
+\newblock Reading tea leaves: How humans interpret topic models. In {\em
+  Advances in Neural Information Processing Systems 22}; Bengio, Y.;
+  Schuurmans, D.; Lafferty, J.D.; Williams, C.K.I.; Culotta, A., Eds.; Curran
+  Associates: Red Hook, NY, USA,  2009; pp. 288--296.
 
 \bibitem[Mimno et~al.(2011)Mimno, Wallach, Talley, Leenders, and
   McCallum]{mimno2011coherence}
 Mimno, D.; Wallach, H.M.; Talley, E.; Leenders, M.; McCallum, A.
-\newblock Optimizing Semantic Coherence in Topic Models.
-\newblock In Proceedings of the Proceedings of the 2011 Conference on Empirical
-  Methods in Natural Language Processing,  2011, pp. 262--272.
+\newblock Optimizing semantic coherence in topic models.
+\newblock In Proceedings of the 2011 Conference on Empirical Methods in Natural
+  Language Processing (EMNLP 2011), Edinburgh, UK,  27--31 July 2011; pp.
+  262--272.
 
 \bibitem[Priem et~al.(2022)Priem, Piwowar, and Orr]{priem2022openalex}
 Priem, J.; Piwowar, H.; Orr, R.
 \newblock {OpenAlex}: A fully-open index of scholarly works, authors, venues,
   institutions, and concepts.
-\newblock {\em arXiv preprint arXiv:2205.01833} {\bf 2022}.
+\newblock {\em arXiv} {\bf 2022}.
+\newblock arXiv:2205.01833, {\url{https://doi.org/10.48550/arXiv.2205.01833}}.
 
 \bibitem[Gallardo and Bruccoleri~Ochoa(2024)]{gallardo2024openalex}
 Gallardo, O.; Bruccoleri~Ochoa, M.
 \newblock El problema de las bases de datos en la evaluaci{\'o}n de la
-  producci{\'o}n cient{\'i}fica en Am{\'e}rica Latina. Una exploraci{\'o}n del
-  potencial de {OpenAlex} para las universidades argentinas.
+  producci{\'o}n cient{\'i}fica en {Am{\'e}rica Latina}. {Una} exploraci{\'o}n
+  del potencial de {OpenAlex} para las universidades argentinas.
 \newblock {\em Discursos del Sur} {\bf 2024}, {\em 13},~63--85.
 \newblock {\url{https://doi.org/10.15381/dds.n13.27890}}.
 
@@ -250,8 +253,8 @@ C{\'e}spedes, L.; Kozlowski, D.; Pradier, C.; Sainte-Marie, M.H.; Shokida,
 
 \bibitem[Visser et~al.(2021)Visser, van Eck, and Waltman]{visser2021comparison}
 Visser, M.; van Eck, N.J.; Waltman, L.
-\newblock Large-scale comparison of bibliographic data sources: Scopus, Web of
-  Science, Dimensions, Crossref, and Microsoft Academic.
+\newblock Large-scale comparison of bibliographic data sources: {Scopus}, {Web
+  of Science}, {Dimensions}, {Crossref}, and {Microsoft Academic}.
 \newblock {\em Quantitative Science Studies} {\bf 2021}, {\em 2},~20--41.
 \newblock {\url{https://doi.org/10.1162/qss_a_00112}}.
 
@@ -260,15 +263,17 @@ Visser, M.; van Eck, N.J.; Waltman, L.
 Singh, A.; D'Arcy, M.; Cohan, A.; Downey, D.; Feldman, S.
 \newblock {SciRepEval}: A multi-format benchmark for scientific document
   representations.
-\newblock In Proceedings of the Proceedings of the 2023 Conference on Empirical
-  Methods in Natural Language Processing,  2023, pp. 5548--5566.
+\newblock In Proceedings of the 2023 Conference on Empirical Methods in Natural
+  Language Processing (EMNLP 2023), Singapore,  6--10 December 2023; pp.
+  5548--5566.
 \newblock {\url{https://doi.org/10.18653/v1/2023.emnlp-main.338}}.
 
 \bibitem[McInnes et~al.(2018)McInnes, Healy, and Melville]{mcinnes2018umap}
 McInnes, L.; Healy, J.; Melville, J.
 \newblock {UMAP}: Uniform Manifold Approximation and Projection for Dimension
   Reduction.
-\newblock {\em arXiv preprint arXiv:1802.03426} {\bf 2018}.
+\newblock {\em arXiv} {\bf 2018}.
+\newblock arXiv:1802.03426, {\url{https://doi.org/10.48550/arXiv.1802.03426}}.
 
 \bibitem[McInnes et~al.(2017)McInnes, Healy, and Astels]{mcinnes2017hdbscan}
 McInnes, L.; Healy, J.; Astels, S.
@@ -278,7 +283,7 @@ McInnes, L.; Healy, J.; Astels, S.
 
 \bibitem[Lee et~al.(2026)Lee, Hur, and Min]{lee2026evidence}
 Lee, Y.; Hur, M.; Min, M.
-\newblock Evidence access design for LLM-based scientometrics: graph-based
+\newblock Evidence access design for {LLM}-based scientometrics: graph-based
   evidence augmentation over semantic retrieval.
 \newblock {\em Scientometrics} {\bf 2026}, {\em 131},~5443--5477.
 \newblock {\url{https://doi.org/10.1007/s11192-026-05729-4}}.
